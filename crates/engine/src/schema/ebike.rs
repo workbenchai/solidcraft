@@ -48,8 +48,7 @@ mod tests {
     }
     #[test]
     fn strict_unknown_keys_do_not_create_geometry() {
-        let mut s = Session::default();
-        s.param_check = ParamCheck::Strict;
+        let mut s = Session { param_check: ParamCheck::Strict, ..Session::default() };
         assert!(s.execute("ebike.create", &json!({"typo":1})).is_err());
         assert!(s.doc.features.is_empty() && s.doc.ebike.is_none());
     }
