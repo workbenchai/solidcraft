@@ -60,6 +60,7 @@ pub mod component;
 pub mod config;
 pub mod construct;
 pub mod diagnostics;
+pub mod ebike;
 pub mod edit;
 pub mod features;
 pub mod file;

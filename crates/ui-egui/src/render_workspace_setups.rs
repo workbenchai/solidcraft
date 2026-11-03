@@ -309,6 +309,7 @@ pub(super) fn same_model_source(app: &SolveApp, document: &std::sync::Weak<solid
         name,
         units,
         metadata,
+        ebike,
         params,
         text_params,
         features,

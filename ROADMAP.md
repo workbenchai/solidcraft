@@ -776,3 +776,9 @@ and reference-object placement remain separate work, as do loft rails and center
 
 truck (Apache-2.0) behind our own `kernel` crate, with our own blend operation and boolean
 retry/validation; see `plan/adr/0001-geometry-kernel.md` (local) — summary in README.
+
+## Workbench fork: pedal-assist project
+
+Exploratory native project, editable assembly, embedded design sources and analytic checks: implemented in this fork.
+Detailed motor verification, transmission, native ECAD and hardware firmware: pending.
+See [scope and acceptance evidence](docs/ebike/README.md).

@@ -50,6 +50,13 @@
 
 *A Raspberry Pi 4 case from an empty design: a sketch dimensioned with the board's parameters, extrude, fillet, shell, the rim rounded in one pick, an M2.5 standoff patterned on the 58 × 49 mm hole rectangle, port cut-outs, vent slots, "Pi 4" engraved in DejaVu Sans Bold and a PETG material defined in the design, with its mass in Properties, then height 24 → 32 mm in Parameters and it all rebuilds. 6× playback with the idle pauses cut. [Full video](https://github.com/tangency-labs/solidcraft/raw/refs/heads/main/docs/screenshots/demo.mp4), recorded with the [demo script](examples/demo/record_ui.sh).*
 
+## Workbench e-bike project (exploratory fork)
+
+This fork adds a native pedal-assist motor/controller study with editable CAD, domain inputs,
+embedded controller/wiring/firmware sources and analytical feasibility checks.
+See [the project guide](docs/ebike/README.md) and [the fork review](docs/ebike/FORK_REVIEW.md).
+This is a development foundation; magnetic simulation, routed PCB and commissioned motor firmware remain incomplete.
+
 ## Download
 
 - **Windows:** the [installer][windows-msi].

@@ -1,0 +1,7 @@
+{
+  "commands": [
+    {"command":"ebike.create","params":{}},
+    {"command":"file.save_as","params":{"path":"/tmp/ebike.sc"}},
+    {"command":"ebike.inspect","params":{}}
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "status": "architecture-only; not a routed or fabrication-ready PCB",
+  "candidate_mcu": "STM32G431; pin allocation and peripheral setup unverified",
+  "candidate_gate_driver": "DRV8353; VM 75 V max operating, VDrain 100 V max operating per datasheet",
+  "power_stage": "six external 100 V MOSFETs; device, gate resistors and switching losses TBD",
+  "blocks": ["fused battery input", "reverse-polarity protection", "precharge", "DC-link capacitors",
+    "transient clamp", "three half bridges", "three low-side current shunts", "gate driver",
+    "high-voltage buck and 3.3 V regulator", "MCU", "Hall inputs", "winding and FET temperature",
+    "pedal sensor", "independent hardware brake shutdown", "SWD"],
+  "required_before_fabrication": ["complete pin-level schematic", "rated BOM and derating",
+    "gate-loop and Kelvin-shunt layout", "bootstrap/charge-pump/decoupling values",
+    "current-sense gain and ADC timing", "ERC/DRC", "transient and thermal validation"]
+}

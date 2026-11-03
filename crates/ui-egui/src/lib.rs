@@ -61,6 +61,7 @@ pub mod documents;
 pub mod drag_extrude;
 pub mod drag_snap;
 pub mod easyprint_ui;
+pub mod ebike_project;
 pub mod edit_clipboard;
 pub mod edit_in_place;
 mod feature_edit;
@@ -550,6 +551,7 @@ pub struct SolveApp {
     pub params: Option<params_dialog::ParamsDialog>,
     /// The Design Properties window, when open.
     pub design_properties: Option<design_properties::DesignProperties>,
+    pub ebike_editor: Option<ebike_project::Editor>,
     /// The Sketch report window (`sketch.inspect` from the ribbon), when open.
     pub sketch_report: Option<sketch_report::SketchReport>,
     /// The Bill of Materials window, when open.
@@ -808,6 +810,7 @@ impl SolveApp {
             dialog: None,
             params: None,
             design_properties: None,
+            ebike_editor: None,
             sketch_report: None,
             bom: None,
             material_card_review: None,
@@ -1828,6 +1831,10 @@ impl SolveApp {
                 let at = self.viewport.rect.map(|rect| rect.center()).unwrap_or(egui::pos2(300.0, 200.0));
                 context_menu::open_for(self, at, context_menu::Target::Units);
             }
+            return;
+        }
+        if matches!(id, "ebike.create" | "ebike.configure" | "ebike.inspect") {
+            ebike_project::open(self);
             return;
         }
         if id == "parameters.change" {
@@ -3146,6 +3153,7 @@ impl SolveApp {
         self.resolve_fit(ui.ctx());
         params_dialog::show(self, ui.ctx());
         design_properties::show(self, ui.ctx());
+        ebike_project::show(self, ui.ctx());
         sketch_report::show(self, ui.ctx());
         bom_panel::show(self, ui.ctx());
         material_card_review::show(self, ui.ctx());

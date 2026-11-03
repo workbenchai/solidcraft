@@ -3014,6 +3014,9 @@ pub fn is_counted_body_name(name: &str) -> bool {
 /// The document.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Document {
+    /// Native multidisciplinary project; absent in ordinary mechanical designs.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub ebike: Option<crate::ebike::Project>,
     /// Named image intent and immutable embedded HDR sources. Active jobs and device state are not saved.
     #[serde(default, skip_serializing_if = "crate::render_settings::RenderSettings::is_empty")]
     pub render: std::sync::Arc<crate::render_settings::RenderSettings>,
@@ -3381,6 +3384,7 @@ impl Document {
             name: name.into(),
             units: default_units(),
             metadata: Default::default(),
+            ebike: None,
             params: Vec::new(),
             text_params: Vec::new(),
             features: Vec::new(),
@@ -3797,7 +3801,10 @@ impl Document {
     /// Read a design file's JSON (any format this build knows; older ones are upgraded).
     pub fn from_json(s: &str) -> Result<Document> {
         crate::render_resources::check_json_budget(s)?;
-        let mut d = crate::format::read(s)?;
+        let mut d: Document = crate::format::read(s)?;
+        if let Some(project) = &d.ebike {
+            project.validate()?;
+        }
         if d.features.len() > MAX_FEATURES || d.params.len() > MAX_PARAMS {
             return Err(DocError::Invalid("document too large".into()));
         }

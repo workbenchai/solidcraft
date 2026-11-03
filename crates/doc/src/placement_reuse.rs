@@ -129,6 +129,7 @@ fn same_geometry_inputs(a: &Document, b: &Document) -> bool {
         name,
         units,
         metadata,
+        ebike,
         params,
         features,
         marker,
@@ -166,6 +167,7 @@ fn same_geometry_inputs(a: &Document, b: &Document) -> bool {
         && *name == b.name
         && *units == b.units
         && *metadata == b.metadata
+        && *ebike == b.ebike
         && *params == b.params
         && features.len() == b.features.len()
         && features.iter().zip(&b.features).all(|(a, b)| same_feature(a, b))

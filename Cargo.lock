@@ -4127,6 +4127,7 @@ name = "solidcraft-doc"
 version = "0.40.0-rc.1"
 dependencies = [
  "log",
+ "schemars",
  "serde",
  "serde_json",
  "sha2 0.10.9",
@@ -4150,6 +4151,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_path_to_error",
+ "sha2 0.10.9",
  "solidcraft-doc",
  "solidcraft-geom",
  "solidcraft-io",

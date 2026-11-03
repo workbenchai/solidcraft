@@ -1,0 +1,22 @@
+{
+  "status": "logical harness; conductor gauge, connector ratings and physical routes require verification",
+  "nets": {
+    "VBAT_FUSED": ["battery.positive", "fuse.in"],
+    "DC_INPUT": ["fuse.out", "precharge.in", "reverse_protection.in"],
+    "DC_LINK": ["reverse_protection.out", "dc_link.positive", "bridge.bus_positive"],
+    "PGND": ["battery.negative", "dc_link.negative", "current_shunts.return"],
+    "PHASE_U": ["bridge.u", "motor.u"],
+    "PHASE_V": ["bridge.v", "motor.v"],
+    "PHASE_W": ["bridge.w", "motor.w"],
+    "HALL_A": ["motor.hall_a", "controller.hall_a"],
+    "HALL_B": ["motor.hall_b", "controller.hall_b"],
+    "HALL_C": ["motor.hall_c", "controller.hall_c"],
+    "SENSOR_5V": ["controller.sensor_supply", "motor.hall_supply", "pedal.supply"],
+    "SENSOR_GND": ["controller.sensor_ground", "motor.hall_ground", "pedal.ground", "motor.ntc_return"],
+    "WINDING_NTC": ["motor.ntc", "controller.winding_temperature"],
+    "PEDAL": ["pedal.signal", "controller.pedal_input"],
+    "BRAKE_INHIBIT": ["brake.interlock", "controller.hardware_inhibit"]
+  },
+  "star_connection": ["motor.u_end", "motor.v_end", "motor.w_end"],
+  "missing": ["precharge bypass sequencing", "signal protection and connector pin numbers", "physical harness routes"]
+}
