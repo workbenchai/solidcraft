@@ -176,7 +176,7 @@ impl Project {
             ("BB width", b.bottom_bracket_width_mm, 60.0, 100.0),
             ("BB bore", b.bottom_bracket_bore_mm, 25.0, 55.0),
             ("chainline", b.chainline_mm, 35.0, 80.0),
-            ("stator radius", m.stator_radius_mm, 25.0, 65.0),
+            ("stator radius", m.stator_radius_mm, 30.0, 65.0),
             ("air gap", m.air_gap_mm, 0.3, 2.0),
             ("magnet thickness", m.magnet_thickness_mm, 1.0, 8.0),
             ("back iron", m.back_iron_mm, 1.0, 8.0),

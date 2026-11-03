@@ -16,6 +16,14 @@ The generated solids are ordinary timeline features and components. Change dimen
 
 ## CLI and MCP
 
+A headless example avoids building the desktop/GPU stack and writes the native project plus an OBJ assembly:
+
+```sh
+cargo run --profile ci -p solidcraft-engine --example ebike-native -- /tmp/ebike-study
+```
+
+Its JSON report goes to standard output. The `.sc` file contains the editable features and embedded sources; OBJ is a geometry preview only.
+
 ```sh
 cargo run --profile ci -p solidcraft-cli -- run examples/ebike/create.json --out /tmp/ebike.step
 cargo run --profile ci -p solidcraft-cli -- snapshot examples/ebike/create.json --out /tmp/ebike.png

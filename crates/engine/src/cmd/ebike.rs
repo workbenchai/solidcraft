@@ -177,11 +177,8 @@ fn geometry() -> Vec<(&'static str, Value)> {
     );
     add("component.create", json!({"name":"Wheel envelopes","parent":"root"}));
     for (name, x) in [("Rear wheel", -440), ("Front wheel", 650)] {
-        add("solid.cylinder", json!({"base":[x,-15,"eb_wheel_r"],"axis":"Y","radius":"eb_wheel_r","height":30,"body_name":name}));
-        add(
-            "solid.cylinder",
-            json!({"base":[x,-15,"eb_wheel_r"],"axis":"Y","radius":"eb_wheel_r-20 mm","height":30,"operation":"cut","targets":[name]}),
-        );
+        add("solid.cylinder", json!({"base":[x,-15,335],"axis":"Y","radius":"eb_wheel_r","height":30,"body_name":name}));
+        add("solid.cylinder", json!({"base":[x,-15,335],"axis":"Y","radius":"eb_wheel_r-20 mm","height":30,"operation":"cut","targets":[name]}));
     }
     // Motor axis is +Y; all named bodies are ordinary editable timeline features.
     add("component.create", json!({"name":"Stator 12 slot","parent":"root"}));

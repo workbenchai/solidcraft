@@ -15,6 +15,7 @@ pub struct Editor {
     tab: usize,
     error: Option<String>,
     pending: bool,
+    submitted: Option<Project>,
 }
 impl Editor {
     fn load(app: &mut SolveApp) -> Self {
@@ -22,6 +23,8 @@ impl Editor {
         let mut value = serde_json::to_value(&project).unwrap_or(Value::Null);
         if let Some(object) = value.as_object_mut() {
             object.remove("files");
+            object.remove("schema_version");
+            object.remove("geometry_signature");
         }
         let path = project.files.keys().next().cloned().unwrap_or_default();
         let source = project.files.get(&path).cloned().unwrap_or_default();
@@ -37,6 +40,7 @@ impl Editor {
             tab: 0,
             error: None,
             pending: false,
+            submitted: None,
         }
     }
     fn project(&mut self) -> Result<Project, String> {
@@ -45,6 +49,7 @@ impl Editor {
         }
         let mut value: Value = serde_json::from_str(&self.design).map_err(|e| e.to_string())?;
         let object = value.as_object_mut().ok_or_else(|| "Project definition must be an object".to_string())?;
+        object.entry("schema_version").or_insert(json!(1));
         object.insert("files".into(), json!(self.files));
         serde_json::from_value(value).map_err(|e| e.to_string())
     }
@@ -59,10 +64,17 @@ pub fn show(app: &mut SolveApp, ctx: &egui::Context) {
         return;
     }
     if editor.pending && app.computing_since().is_none() {
-        if editor.revision != app.session.revision {
+        if editor.submitted.as_ref().zip(app.session.doc.ebike.as_ref()).is_some_and(|(wanted, current)| {
+            let mut wanted = wanted.clone();
+            let mut current = current.clone();
+            wanted.geometry_signature.clear();
+            current.geometry_signature.clear();
+            wanted == current
+        }) {
             editor = Editor::load(app);
         } else {
             editor.pending = false;
+            editor.submitted = None;
         }
     }
     let exists = app.session.doc.ebike.is_some();
@@ -74,7 +86,7 @@ pub fn show(app: &mut SolveApp, ctx: &egui::Context) {
             let labels = [crate::i18n::tr("ui.ebike.design"), crate::i18n::tr("ui.ebike.sources"), crate::i18n::tr("ui.ebike.checks")];
             ui_kit::segmented(ui, &mut editor.tab, &labels, Default::default());
             ui.separator();
-            match editor.tab {
+            ui.add_enabled_ui(!editor.pending, |ui| match editor.tab {
                 0 => {
                     ui.add(
                         egui::TextEdit::multiline(&mut editor.design).char_limit(65536).code_editor().desired_rows(18).desired_width(f32::INFINITY),
@@ -101,7 +113,7 @@ pub fn show(app: &mut SolveApp, ctx: &egui::Context) {
                         egui::TextEdit::multiline(&mut editor.report).code_editor().interactive(false).desired_rows(18).desired_width(f32::INFINITY),
                     );
                 }
-            }
+            });
             if let Some(error) = &editor.error {
                 ui.label(error);
             }
@@ -112,7 +124,9 @@ pub fn show(app: &mut SolveApp, ctx: &egui::Context) {
             });
         });
     if apply {
-        let result = editor.project().and_then(|project| {
+        let result = editor.project().and_then(|mut project| {
+            project.sync_firmware_config();
+            editor.submitted = Some(project.clone());
             if exists {
                 app.run_heavy("ebike.configure", json!({"project":project,"expected_revision":editor.revision}))
             } else {
@@ -128,6 +142,7 @@ pub fn show(app: &mut SolveApp, ctx: &egui::Context) {
             }
             Err(error) => {
                 editor.error = Some(error);
+                editor.submitted = None;
             }
         }
     }
