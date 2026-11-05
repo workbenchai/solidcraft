@@ -53,6 +53,14 @@ impl Document {
                 "component supplies a recorded body transfer outside this subtree; remove that transfer history before deleting its source".into(),
             ));
         }
+        if self.electronics.as_ref().is_some_and(|p| {
+            p.boards.values().any(|b| {
+                b.mechanical_component.is_some_and(|id| inside.contains(&id))
+                    || b.placements.values().any(|v| v.mechanical_component.is_some_and(|id| inside.contains(&id)))
+            })
+        }) {
+            return Err(DocError::Invalid("component is linked to electronics; remove the electrical mechanical link before deleting it".into()));
+        }
         let features: Vec<u64> = self.features.iter().filter(|f| inside.contains(&f.component)).map(|f| f.id).collect();
         let deleted = if features.is_empty() { Vec::new() } else { self.delete_features(&features)? };
 

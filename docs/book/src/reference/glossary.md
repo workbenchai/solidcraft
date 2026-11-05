@@ -527,3 +527,13 @@ its display name. Replies and scripts use the design-file key (`timeline.inspect
 - **British or American spelling** in the docs. The labels are settled: `en.json` is American
   English, and English (UK) (`en-GB.json`, #2501) holds the British spelling. The docs still use
   both (colour and color, centre and center); ids and keys use American spelling.
+
+## Electronics
+
+- **Board:** physical substrate and ordered layer stack carrying pads, traces, vias and copper-pour intent.
+- **Pin:** logical terminal of an electrical component. A **pad** is its physical copper interface; several pads may share a pin.
+- **Net:** intended electrical connection among component pins, shared by schematic and layout views.
+- **Netgroup:** named set of nets with shared routing constraints, optionally defining a differential pair.
+- **Schematic view:** drawing of symbols, wires, explicit junctions and labels that reference the electrical graph.
+- **System / subsystem:** functional grouping with named electrical ports and an optional parent system.
+- **Pour:** polygonal copper intent with a net and clearance/thermal settings; actual copper requires a fill calculation.

@@ -26,6 +26,7 @@ pub mod display_units;
 mod document;
 pub mod drawing;
 pub mod ebike;
+pub mod electronics;
 mod eval;
 pub mod expr;
 pub mod face_anchor;

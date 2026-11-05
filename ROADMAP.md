@@ -782,3 +782,12 @@ retry/validation; see `plan/adr/0001-geometry-kernel.md` (local) — summary in 
 Exploratory native project, editable assembly, embedded design sources and analytic checks: implemented in this fork.
 Detailed motor verification, transmission, native ECAD and hardware firmware: pending.
 See [scope and acceptance evidence](docs/ebike/README.md).
+
+## Native electronics foundation (fork)
+
+The `solidcraft-electronics` crate adds typed boards, layers, components/pins/nets, pads,
+traces, vias, pour intent, netgroups, schematic views and system hierarchy. Native commands
+edit and inspect the graph; `.sc` persistence and optional CAD-component links connect it
+to mechanical documents. See [the implementation guide](docs/electronics/README.md).
+Graphical electronics editors, full ERC/DRC, copper fill and manufacturing/simulation
+exports remain future work. This does not claim a fabrication-ready controller.

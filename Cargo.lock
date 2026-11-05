@@ -4132,6 +4132,7 @@ dependencies = [
  "serde_json",
  "sha2 0.10.9",
  "solidcraft-derive",
+ "solidcraft-electronics",
  "solidcraft-geom",
  "solidcraft-kernel",
  "solidcraft-profile",
@@ -4139,6 +4140,17 @@ dependencies = [
  "solidcraft-sketch",
  "thiserror 2.0.21",
  "web-time",
+]
+
+[[package]]
+name = "solidcraft-electronics"
+version = "0.40.0-rc.1"
+dependencies = [
+ "schemars",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "thiserror 2.0.21",
 ]
 
 [[package]]

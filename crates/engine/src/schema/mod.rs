@@ -62,6 +62,7 @@ pub mod construct;
 pub mod diagnostics;
 pub mod ebike;
 pub mod edit;
+pub mod electronics;
 pub mod features;
 pub mod file;
 pub mod inspect;

@@ -3014,6 +3014,9 @@ pub fn is_counted_body_name(name: &str) -> bool {
 /// The document.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Document {
+    /// Native electrical graph and PCB geometry, independent of any EDA runtime.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub electronics: Option<solidcraft_electronics::Project>,
     /// Native multidisciplinary project; absent in ordinary mechanical designs.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub ebike: Option<crate::ebike::Project>,
@@ -3384,6 +3387,7 @@ impl Document {
             name: name.into(),
             units: default_units(),
             metadata: Default::default(),
+            electronics: None,
             ebike: None,
             params: Vec::new(),
             text_params: Vec::new(),
@@ -3802,6 +3806,7 @@ impl Document {
     pub fn from_json(s: &str) -> Result<Document> {
         crate::render_resources::check_json_budget(s)?;
         let mut d: Document = crate::format::read(s)?;
+        d.validate_electronics()?;
         if let Some(project) = &d.ebike {
             project.validate()?;
         }

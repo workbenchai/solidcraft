@@ -1,0 +1,7 @@
+{
+  "en": {
+    "cmd.electronics.apply": "Edit Electronics",
+    "cmd.electronics.inspect": "Inspect Electronics",
+    "cmd.electronics.replace": "Set Electronics"
+  }
+}

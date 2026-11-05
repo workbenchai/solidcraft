@@ -37,6 +37,7 @@ mod delete;
 pub(crate) mod diagnostics;
 mod ebike;
 mod edit;
+mod electronics;
 mod face;
 mod features;
 mod features_more;
@@ -357,6 +358,7 @@ pub fn command_specs() -> Vec<&'static CommandSpec> {
     v.extend(print_face::COMMANDS.iter());
     v.extend(metadata::COMMANDS.iter());
     v.extend(ebike::COMMANDS.iter());
+    v.extend(electronics::COMMANDS.iter());
     v.extend(inspect::COMMANDS.iter());
     v.extend(compare::COMMANDS.iter());
     v.extend(compare_picture::COMMANDS.iter());

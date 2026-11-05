@@ -2369,6 +2369,7 @@ fn same_but_features(a: &Document, b: &Document) -> bool {
         units,
         metadata,
         ebike,
+        electronics,
         params,
         text_params,
         features: _,
@@ -2407,6 +2408,7 @@ fn same_but_features(a: &Document, b: &Document) -> bool {
         && *units == b.units
         && *metadata == b.metadata
         && *ebike == b.ebike
+        && *electronics == b.electronics
         && *params == b.params
         && *text_params == b.text_params
         && *marker == b.marker
